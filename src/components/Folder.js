@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react'
 
 const Headers = ({ titles, currentTab, selectTab }) => {
   const handleClick = (e) => {
@@ -28,7 +29,7 @@ const Headers = ({ titles, currentTab, selectTab }) => {
   );
 }
 
-class Folder extends React.Component {
+/*class Folder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -60,6 +61,33 @@ class Folder extends React.Component {
       </section>
     );
   }
+}*/
+
+function Folder({ folders }) {
+  const [currentTab, setCurrentTab] = useState(0);
+  
+  const selectTab = (num) => {
+      setCurrentTab(num);
+  };
+
+  const titles = folders.map(folder => folder.title);
+  const folder = folders[currentTab];
+
+  return (
+      <section className="tabs-section">
+        <h1>Tabs</h1>
+        <div className='tabs'>
+          <Headers
+            titles={titles}
+            currentTab={currentTab}
+            selectTab={selectTab}
+          />
+          <div className='tab-content'>
+            {folder.content}
+          </div>
+        </div>
+      </section>
+    );
 }
 
 export default Folder;
